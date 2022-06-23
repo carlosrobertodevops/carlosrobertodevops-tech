@@ -241,7 +241,7 @@
       "name": "NODEJS_VERSION",
       "displayName": "Version of NodeJS Image",
       "description": "Versão da imagem NodeJS a ser usada (10, 12, 16 ou mais recente).",
-      "value": "16",
+      "value": "14",
       "required": true
     },
     {
@@ -249,7 +249,7 @@
       "displayName": "Memory Limit",
       "description": "Maximum amount of memory the Node.js container can use.",
       "required": true,
-      "value": "1024Mi"
+      "value": "2Gi"
     },
     {
       "name": "SOURCE_REPOSITORY_URL",
