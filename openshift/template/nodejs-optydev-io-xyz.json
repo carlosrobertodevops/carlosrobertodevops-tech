@@ -18,7 +18,7 @@
   "message": "TOs seguintes serviços foram criados em seu projeto: ${NAME}, \n\nPara obter mais informações sobre como usar este modelo, incluindo considerações do OpenShift, consulte https://github.com/scorg/nodejs-ex/blob/ master/README.md.",
   "labels": {
     "template": "nodejs-optydev-io-xyz",
-    "app": "nodejs-optydev-io-xyz-app"
+    "app": "nodejs-optydev-io-xyz"
   },
   "objects": [
     {
