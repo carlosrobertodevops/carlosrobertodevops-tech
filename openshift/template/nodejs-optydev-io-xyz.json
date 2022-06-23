@@ -5,17 +5,17 @@
     "name": "nodejs-optydev-io-xyz",
     "annotations": {
       "openshift.io/display-name": "Node.js + Nextjs",
-      "description": "incluindo as considerações do OpenShift, consulte https://github.com/scorg/nodejs-ex/blob/master/README.md.\n\nAVISO: Todos os dados armazenados serão perdidos após a destruição do pod. Use este modelo apenas para teste.",
+      "description": "Consulte https://github.com/scorg/nodejs-ex/blob/master/README.md.",
       "tags": "quickstart,nextjs,nodejs,hidden",
       "iconClass": "icon-nodejs",
-      "openshift.io/long-description": "Este template define os recursos necessários para desenvolver uma aplicação Nextjs e NodeJS, incluindo uma configuração de build, configuração de implementação de aplicação e configuração de implementação.",
+      "openshift.io/long-description": "Este template define os recursos necessários para desenvolver uma aplicação Nextjs e NodeJS.",
       "openshift.io/provider-display-name": "Red Hat, Inc.",
       "openshift.io/documentation-url": "https://github.com/sclorg/nodejs-ex",
       "openshift.io/support-url": "https://access.redhat.com",
       "template.openshift.io/bindable": "false"
     }
   },
-  "message": "TOs seguintes serviços foram criados em seu projeto: ${NAME}, \n\nPara obter mais informações sobre como usar este modelo, incluindo considerações do OpenShift, consulte https://github.com/scorg/nodejs-ex/blob/ master/README.md.",
+  "message": "TOs seguintes serviços foram criados em seu projeto: ${NAME}.",
   "labels": {
     "template": "nodejs-optydev-io-xyz",
     "app": "nodejs-optydev-io-xyz"
@@ -42,8 +42,8 @@
         "ports": [
           {
             "name": "web",
-            "port": 3000,
-            "targetPort": 3000
+            "port": 8080,
+            "targetPort": 8080
           }
         ],
         "selector": {
