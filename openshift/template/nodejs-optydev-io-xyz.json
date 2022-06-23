@@ -161,7 +161,7 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "nodejs-optydev-io-xyz-app"
+                "nodejs-optydev-io-xyz"
               ],
               "from": {
                 "kind": "ImageStreamTag",
@@ -187,7 +187,7 @@
           "spec": {
             "containers": [
               {
-                "name": "nodejs-optydev-io-xyz-app",
+                "name": "nodejs-optydev-io-xyz",
                 "image": " ",
                 "ports": [
                   {
