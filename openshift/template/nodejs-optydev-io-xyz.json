@@ -191,7 +191,7 @@
                 "image": " ",
                 "ports": [
                   {
-                    "containerPort": 3000
+                    "containerPort": 8080
                   }
                 ],
                 "readinessProbe": {
@@ -254,7 +254,7 @@
     {
       "name": "SOURCE_REPOSITORY_URL",
       "displayName": "Git Repository URL",
-      "description": "TA URL do repositório com o código-fonte do seu aplicativo.",
+      "description": "A URL do repositório com o código-fonte do seu aplicativo.",
       "required": true,
       "value": "https://github.com/carlosrobertodevops/nextjs-optydev-io-xyz.git"
     },
