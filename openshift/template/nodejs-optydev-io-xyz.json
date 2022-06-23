@@ -81,7 +81,7 @@
       "metadata": {
         "name": "${NAME}",
         "annotations": {
-          "description": "Defines how to build the application",
+          "description": "Define como construir o aplicativo",
           "template.alpha.openshift.io/wait-for-ready": "true"
         }
       },
