@@ -12,5 +12,6 @@
   "cSpell.words": [
     "Prismic"
   ],
-  "editor.guides.indentation": true
+  "editor.guides.indentation": true,
+  "editor.tabSize": 2
 }
