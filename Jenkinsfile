@@ -78,16 +78,16 @@ pipeline {
         }
       }
     }
-    // stage('tag') {
-    //   steps {
-    //     script {
-    //         openshift.withCluster() {
-    //             openshift.withProject() {
-    //               openshift.tag("${templateName}:latest", "${templateName}-staging:latest") 
-    //             }
-    //         }
-    //     }
-    //   }
-    // }
+    stage('tag') {
+      steps {
+        script {
+            openshift.withCluster() {
+                openshift.withProject() {
+                  openshift.tag("${templateName}:latest", "${templateName}-staging:latest") 
+                }
+            }
+        }
+      }
+    }
   }
 }
