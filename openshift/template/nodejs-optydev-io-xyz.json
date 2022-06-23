@@ -2,23 +2,23 @@
   "kind": "Template",
   "apiVersion": "template.openshift.io/v1",
   "metadata": {
-    "name": "nodejs-mongodb-example",
+    "name": "nodejs-optydev-io-xyz",
     "annotations": {
-      "openshift.io/display-name": "Node.js + MongoDB (Ephemeral)",
-      "description": "An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
-      "tags": "quickstart,nodejs,hidden",
+      "openshift.io/display-name": "Node.js + Nextjs",
+      "description": "including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+      "tags": "quickstart,nextjs,nodejs,hidden",
       "iconClass": "icon-nodejs",
-      "openshift.io/long-description": "This template defines resources needed to develop a NodeJS application, including a build configuration, application deployment configuration, and database deployment configuration.  The database is stored in non-persistent storage, so this configuration should be used for experimental purposes only.",
+      "openshift.io/long-description": "This template defines resources needed to develop a Nextjs e NodeJS application, including a build configuration, application deployment configuration and deployment configuration.",
       "openshift.io/provider-display-name": "Red Hat, Inc.",
       "openshift.io/documentation-url": "https://github.com/sclorg/nodejs-ex",
       "openshift.io/support-url": "https://access.redhat.com",
       "template.openshift.io/bindable": "false"
     }
   },
-  "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.",
+  "message": "The following service(s) have been created in your project: ${NAME}, \n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.",
   "labels": {
-    "template": "nodejs-mongodb-example",
-    "app": "nodejs-mongodb-example"
+    "template": "nodejs-optydev-io-xyz",
+    "app": "nodejs-optydev-io-xyz"
   },
   "objects": [
     {
@@ -47,8 +47,8 @@
         "ports": [
           {
             "name": "web",
-            "port": 8080,
-            "targetPort": 8080
+            "port": 3000,
+            "targetPort": 3000
           }
         ],
         "selector": {
@@ -166,7 +166,7 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "nodejs-mongodb-example"
+                "nodejs-optydev-io-xyz"
               ],
               "from": {
                 "kind": "ImageStreamTag",
@@ -192,11 +192,11 @@
           "spec": {
             "containers": [
               {
-                "name": "nodejs-mongodb-example",
+                "name": "nodejs-optydev-io-xyz",
                 "image": " ",
                 "ports": [
                   {
-                    "containerPort": 8080
+                    "containerPort": 3000
                   }
                 ],
                 "env": [
@@ -284,166 +284,28 @@
           "name": "${DATABASE_SERVICE_NAME}"
         }
       }
-    },
-    {
-      "kind": "DeploymentConfig",
-      "apiVersion": "apps.openshift.io/v1",
-      "metadata": {
-        "name": "${DATABASE_SERVICE_NAME}",
-        "annotations": {
-          "description": "Defines how to deploy the database",
-          "template.alpha.openshift.io/wait-for-ready": "true"
-        }
-      },
-      "spec": {
-        "strategy": {
-          "type": "Recreate"
-        },
-        "triggers": [
-          {
-            "type": "ImageChange",
-            "imageChangeParams": {
-              "automatic": true,
-              "containerNames": [
-                "mongodb"
-              ],
-              "from": {
-                "kind": "ImageStreamTag",
-                "namespace": "${NAMESPACE}",
-                "name": "mongodb:${MONGODB_VERSION}"
-              }
-            }
-          },
-          {
-            "type": "ConfigChange"
-          }
-        ],
-        "replicas": 1,
-        "selector": {
-          "name": "${DATABASE_SERVICE_NAME}"
-        },
-        "template": {
-          "metadata": {
-            "name": "${DATABASE_SERVICE_NAME}",
-            "labels": {
-              "name": "${DATABASE_SERVICE_NAME}"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "mongodb",
-                "image": " ",
-                "ports": [
-                  {
-                    "containerPort": 27017
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MONGODB_USER",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "${NAME}",
-                        "key": "database-user"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_PASSWORD",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "${NAME}",
-                        "key": "database-password"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_DATABASE",
-                    "value": "${DATABASE_NAME}"
-                  },
-                  {
-                    "name": "MONGODB_ADMIN_PASSWORD",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "${NAME}",
-                        "key": "database-admin-password"
-                      }
-                    }
-                  }
-                ],
-                "readinessProbe": {
-                  "timeoutSeconds": 1,
-                  "initialDelaySeconds": 3,
-                  "exec": {
-                    "command": [
-                      "/bin/sh",
-                      "-i",
-                      "-c",
-                      "mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""
-                    ]
-                  }
-                },
-                "livenessProbe": {
-                  "timeoutSeconds": 1,
-                  "initialDelaySeconds": 30,
-                  "tcpSocket": {
-                    "port": 27017
-                  }
-                },
-                "resources": {
-                  "limits": {
-                    "memory": "${MEMORY_MONGODB_LIMIT}"
-                  }
-                },
-                "volumeMounts": [
-                  {
-                    "name": "${DATABASE_SERVICE_NAME}-data",
-                    "mountPath": "/var/lib/mongodb/data"
-                  }
-                ]
-              }
-            ],
-            "volumes": [
-              {
-                "name": "${DATABASE_SERVICE_NAME}-data",
-                "emptyDir": {
-                  "medium": ""
-                }
-              }
-            ]
-          }
-        }
-      }
     }
   ],
   "parameters": [
     {
       "name": "NAME",
       "displayName": "Name",
-      "description": "The name assigned to all of the frontend objects defined in this template.",
+      "description": "O nome atribuído a todos os objetos frontend definidos neste modelo.",
       "required": true,
-      "value": "nodejs-mongodb-example"
+      "value": "nodejs-optydev-io-xyz"
     },
     {
       "name": "NAMESPACE",
       "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
+      "description": "O namespace OpenShift onde reside o ImageStream.",
       "required": true,
       "value": "openshift"
     },
     {
       "name": "NODEJS_VERSION",
       "displayName": "Version of NodeJS Image",
-      "description": "Version of NodeJS image to be used (10, 12, or latest).",
-      "value": "12",
-      "required": true
-    },
-    {
-      "name": "MONGODB_VERSION",
-      "displayName": "Version of MongoDB Image",
-      "description": "Version of MongoDB image to be used (3.6 or latest).",
-      "value": "3.6",
+      "description": "Versão da imagem NodeJS a ser usada (10, 12, 16 ou mais recente).",
+      "value": "16",
       "required": true
     },
     {
@@ -451,89 +313,49 @@
       "displayName": "Memory Limit",
       "description": "Maximum amount of memory the Node.js container can use.",
       "required": true,
-      "value": "512Mi"
-    },
-    {
-      "name": "MEMORY_MONGODB_LIMIT",
-      "displayName": "Memory Limit (MongoDB)",
-      "description": "Maximum amount of memory the MongoDB container can use.",
-      "required": true,
-      "value": "512Mi"
+      "value": "1024Mi"
     },
     {
       "name": "SOURCE_REPOSITORY_URL",
       "displayName": "Git Repository URL",
-      "description": "The URL of the repository with your application source code.",
+      "description": "TA URL do repositório com o código-fonte do seu aplicativo.",
       "required": true,
-      "value": "https://github.com/sclorg/nodejs-ex.git"
+      "value": "https://github.com/carlosrobertodevops/nextjs-optydev-io-xyz.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
       "displayName": "Git Reference",
-      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+      "description": "Defina isso como um nome de branch, tag ou outra referência do seu repositório se você não estiver usando o branch padrão."
     },
     {
       "name": "CONTEXT_DIR",
       "displayName": "Context Directory",
-      "description": "Set this to the relative path to your project if it is not in the root of your repository."
+      "description": "Defina isso como o caminho relativo para o seu projeto se não estiver na raiz do seu repositório."
     },
     {
       "name": "APPLICATION_DOMAIN",
       "displayName": "Application Hostname",
-      "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.",
+      "description": "O nome do host exposto que será roteado para o serviço Node.js, se deixado em branco, um valor será padronizado.",
       "value": ""
     },
     {
       "name": "GITHUB_WEBHOOK_SECRET",
       "displayName": "GitHub Webhook Secret",
-      "description": "Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.",
+      "description": "Segredo do gatilho do Github. Uma string difícil de adivinhar codificada como parte do URL do webhook. Não criptografado.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "GENERIC_WEBHOOK_SECRET",
       "displayName": "Generic Webhook Secret",
-      "description": "A secret string used to configure the Generic webhook.",
+      "description": "Uma string secreta usada para configurar o webhook genérico.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
-      "name": "DATABASE_SERVICE_NAME",
-      "displayName": "Database Service Name",
-      "required": true,
-      "value": "mongodb"
-    },
-    {
-      "name": "DATABASE_USER",
-      "displayName": "MongoDB Username",
-      "description": "Username for MongoDB user that will be used for accessing the database.",
-      "generate": "expression",
-      "from": "user[A-Z0-9]{3}"
-    },
-    {
-      "name": "DATABASE_PASSWORD",
-      "displayName": "MongoDB Password",
-      "description": "Password for the MongoDB user.",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{16}"
-    },
-    {
-      "name": "DATABASE_NAME",
-      "displayName": "Database Name",
-      "required": true,
-      "value": "sampledb"
-    },
-    {
-      "name": "DATABASE_ADMIN_PASSWORD",
-      "displayName": "Database Administrator Password",
-      "description": "Password for the database admin user.",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{16}"
-    },
-    {
       "name": "NPM_MIRROR",
       "displayName": "Custom NPM Mirror URL",
-      "description": "The custom NPM mirror URL",
+      "description": "O URL do espelho NPM personalizado",
       "value": ""
     }
   ]
