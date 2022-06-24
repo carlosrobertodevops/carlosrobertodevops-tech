@@ -1,0 +1,44 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: nodejs-optydev-io-xyz-pipeline
+  namespace: carlos-roberto-devops-dev
+  uid: adc12858-cacd-4dfd-846d-d64d7c4cfe5c
+  resourceVersion: '1420279596'
+  generation: 2
+  creationTimestamp: '2022-06-22T21:07:06Z'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: build.openshift.io/v1
+      time: '2022-06-22T21:13:12Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:runPolicy': {}
+          'f:source':
+            'f:git':
+              .: {}
+              'f:uri': {}
+            'f:type': {}
+          'f:strategy':
+            'f:jenkinsPipelineStrategy': {}
+            'f:type': {}
+spec:
+  nodeSelector: null
+  output: {}
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfile:
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/carlosrobertodevops/nextjs-optydev-io-xyz'
+  runPolicy: Serial
+status:
+  lastVersion: 0
