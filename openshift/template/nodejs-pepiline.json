@@ -249,7 +249,7 @@
             "displayName": "Git Repository URL",
             "description": "The URL of the repository with your application source code.",
             "required": true,
-            "value": "https://https://github.com/carlosrobertodevops/nextjs-optydev-io-xyz.git"
+            "value": "https://github.com/carlosrobertodevops/nextjs-optydev-io-xyz.git"
         },
         {
             "name": "SOURCE_REPOSITORY_REF",
