@@ -1,4 +1,5 @@
-def templatePath = 'https://raw.githubusercontent.com/carlosrobertodevops/nextjs-optydev-io-xyz/master/openshift/template/nodejs-optydev-io-xyz.json' 
+// def templatePath = 'https://raw.githubusercontent.com/carlosrobertodevops/nextjs-optydev-io-xyz/master/openshift/template/nodejs-optydev-io-xyz.json' 
+def templatePath = 'https://raw.githubusercontent.com/carlosrobertodevops/nextjs-optydev-io-xyz/master/openshift/template/nodejs-pepiline.json'
 def templateName = 'nodejs-optydev-io-xyz' 
 pipeline {
   agent {
